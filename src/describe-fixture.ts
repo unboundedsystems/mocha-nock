@@ -1,6 +1,7 @@
 import record from './recorder';
 import assert from 'assert';
 import defaults from 'lodash.defaults';
+import assign from 'lodash.assign';
 import { Config } from './config';
 
 const _defaultConfig: Config = {
@@ -15,18 +16,28 @@ const _defaultConfig: Config = {
 
 let defaultConfig: Config = _defaultConfig;
 
-function describeFixture(name: string, callback: Mocha.SuiteFunction);
-function describeFixture(name: string, options: Partial<Config>, callback: Mocha.SuiteFunction);
-function describeFixture(name: string, filter: string, options: Partial<Config>, callback: Mocha.SuiteFunction);
-function describeFixture(
+interface DescribeFixture {
+  (name: string, callback: Function): Mocha.Suite;
+  (name: string, options: Partial<Config>, callback: Function): Mocha.Suite;
+  (name: string, filter: string, options: Partial<Config>, callback: Function): Mocha.Suite;
+
+  only: (name: any, options: any, callback: any) => Mocha.Suite;
+  skip: (name: any, options: any, callback: any) => Mocha.Suite;
+  setDefaultConfig: (newConfig?: Partial<Config>) => void;
+}
+
+function _describeFixture(name: string, callback: Function);
+function _describeFixture(name: string, options: Partial<Config>, callback: Function);
+function _describeFixture(name: string, filter: string, options: Partial<Config>, callback: Function);
+function _describeFixture(
   name: string,
-  arg2: string | Mocha.SuiteFunction | Partial<Config>,
-  arg3?: Mocha.SuiteFunction | Partial<Config>,
-  arg4?: Mocha.SuiteFunction) {
+  arg2: string | Function | Partial<Config>,
+  arg3?: Function | Partial<Config>,
+  arg4?: Function) {
 
   let filter: string | null = null;
   let options: Partial<Config> = {};
-  let callback: Mocha.SuiteFunction;
+  let callback: Function;
 
   if (arguments.length === 2) {
     if (typeof arg2 !== 'function') throw new Error(`Second argument must be a function`);
@@ -75,33 +86,35 @@ function describeFixture(
   });
 }
 
-describeFixture.only = function(name: any, options: any, callback: any) {
-  if (arguments.length === 2 && typeof arguments[1] === 'function') {
-    callback = options;
+const describeFixture: DescribeFixture = assign(_describeFixture, {
+
+  only: function only(name: any, options: any, callback: any) {
+    if (arguments.length === 2 && typeof arguments[1] === 'function') {
+      callback = options;
+    }
+    return describeFixture(name, 'only', options, callback)
+  },
+
+  skip: function skip(name: any, options: any, callback: any) {
+    if (arguments.length === 2 && typeof arguments[1] === 'function') {
+      callback = options;
+    }
+
+    return describeFixture(name, 'skip', options, callback)
+  },
+
+  setDefaultConfig: function setDefaultConfig(newConfig?: Partial<Config>) {
+    if (!newConfig) {
+      defaultConfig = _defaultConfig;
+      return;
+    };
+
+    const recorder = defaults(newConfig.recorder || {}, _defaultConfig.recorder);
+    defaultConfig.recorder = recorder;
+
+    defaultConfig = defaults(newConfig, defaultConfig);
   }
-
-  return describeFixture(name, 'only', options, callback)
-}
-
-describeFixture.skip = function(name: any, options: any, callback: any) {
-  if (arguments.length === 2 && typeof arguments[1] === 'function') {
-    callback = options;
-  }
-
-  return describeFixture(name, 'skip', options, callback)
-}
-
-describeFixture.setDefaultConfig = function(newConfig?: Partial<Config>) {
-  if (!newConfig) {
-    defaultConfig = _defaultConfig;
-    return;
-  };
-
-  const recorder = defaults(newConfig.recorder || {}, _defaultConfig.recorder);
-  defaultConfig.recorder = recorder;
-
-  defaultConfig = defaults(newConfig, defaultConfig);
-}
+});
 
 describeFixture.setDefaultConfig();
 
