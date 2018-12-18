@@ -1,10 +1,10 @@
-# Mocha Nock Fixtures [![Build Status](https://travis-ci.org/poetic/mocha-nock-fixtures.svg?branch=master)](https://travis-ci.org/poetic/mocha-nock-fixtures)
+# Mocha Nock
 
 ## About
 
 A simple library that makes saving fixtures with
 [nock](https://github.com/pgte/nock) and
-[mocha](http://visionmedia.github.io/mocha/) easy. Just
+[mocha](http://mochajs.org/) easy. Just
 use `describeFixture` instead of `describe` and it will record outbound requests
 using nock into `test/fixtures` and read from them the next time you run the
 tests.
@@ -12,7 +12,7 @@ tests.
 ## Install
 
 ```bash
-npm install --save-dev mocha-nock-fixtures
+npm install --save-dev mocha-nock
 ```
 
 ## Usage
@@ -105,22 +105,18 @@ You also are able to pass in test specific options as the last parameter to
 
 ## Authors ##
 
+Originally based off of an older version of [nock-vcr-recorder](https://github.com/poetic-labs/nock-vcr-recorder-mocha)
+by Jake Craige.
+
+* [Mark Terrel](https://twitter.com/MarkTerrel)
 * [Jake Craige](http://twitter.com/jakecraige)
 
-## Versioning
-
-This library follows [Semantic Versioning](http://semver.org)
-
-## Want to help?
-
-Please do! We are always looking to improve this library. If you have any ideas
-please open an issue or a pull requests and we'll work on getting them in.
 
 ## Legal
 
-[Poetic Systems](http://poeticsystems.com), Inc &copy; 2014
+[Unbounded Systems](https://unbounded.systems), LLC &copy; 2018
 
-[@poeticsystems](http://twitter.com/poeticsystems)
+[Poetic Systems](http://poeticsystems.com), Inc &copy; 2014
 
 [Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
 
