@@ -33,6 +33,10 @@
     "nock": "^10.0"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/git": "^7.0.5",
+    "@semantic-release/npm": "^5.1.2",
+    "@semantic-release/release-notes-generator": "^7.1.4",
     "@types/lodash.defaults": "^4.2.4",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.5",
@@ -44,5 +48,11 @@
     "request": "^2.88.0",
     "semantic-release": "^15.13.1",
     "typescript": "^3.2.2"
-  }
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm",
+    "@semantic-release/git"
+  ]
 }
