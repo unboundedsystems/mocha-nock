@@ -1,15 +1,16 @@
 // Originally adapted from
 // http://orchestrate.io/blog/2014/06/13/how-to-test-code-that-uses-http-apis-using-node-js-mocha-and-nock/
 
-var nock   = require('nock');
-var path   = require('path');
-var fs     = require('fs');
-var mkdirp = require('mkdirp');
+import nock from 'nock';
+import path from 'path';
+import fs from 'fs';
+import mkdirp from 'mkdirp';
+import { Config } from './config';
 
-module.exports = function (name, options) {
-  var hasFixtures = !!options.overwrite;
+export function record(name: string, options: Config) {
+  let hasFixtures = !!options.overwrite;
+  let fixturePath: string;
 
-  var fixturePath;
   beforeEach(function() {
     fixturePath = path.resolve(path.join('test', 'fixtures', getFixturePath(this)));
 
@@ -32,14 +33,15 @@ module.exports = function (name, options) {
   // Saves our recording if fixtures didn't already exist
   afterEach(function(done) {
     var recordOnFailure = !!options.recordOnFailure;
-    if (!hasFixtures && (this.currentTest.state !== 'failed' || recordOnFailure)) {
+    if (!hasFixtures &&
+      ((this.currentTest && this.currentTest.state) !== 'failed' || recordOnFailure)) {
       hasFixtures  = true;
       var fixtures = nock.recorder.play();
       if (fixtures.length) {
         var header = 'var nock = require(\'nock\');\n'
                     + 'module.exports = function() {\n';
 
-        var body;
+        let body: string;
         if (options.recorder.output_objects) {
           fixtures = removeExcludedScopeFromArray(fixtures, options.excludeScope);
           body     = 'nock.define(' + JSON.stringify(fixtures, null, 2) + ');';
@@ -63,10 +65,11 @@ module.exports = function (name, options) {
   });
 };
 
-function getFixturePath(ctx) {
-  var parent      = ctx.currentTest.parent;
-  var fixturePath = [];
-  while(parent.title) {
+function getFixturePath(ctx: Mocha.Context) {
+  if (!ctx.currentTest) throw new Error(`Can't determine current test`);
+  let parent        = ctx.currentTest.parent;
+  const fixturePath: string[] = [];
+  while(parent && parent.title) {
     fixturePath.unshift(parent.title);
     parent = parent.parent;
   }
@@ -75,7 +78,7 @@ function getFixturePath(ctx) {
   return path.join.apply(path, fixturePath);
 }
 
-function startRecording(options) {
+function startRecording(options: any) {
   nock.restore();
   nock.recorder.clear();
   nock.recorder.rec(options.recorder);
@@ -86,7 +89,7 @@ function removeExcludedScopeFromString(lines, scope) {
     return lines;
   }
 
-  var scopeRegex = new RegExp('nock\(.*(' + scope.join('|') + ').*\)');
+  const scopeRegex = new RegExp('nock\(.*(' + scope.join('|') + ').*\)');
 
   return lines.reduce(function(result, line) {
     if (result.waitingForEnd) {
@@ -109,7 +112,7 @@ function removeExcludedScopeFromArray(fixtureArray, scope) {
   }
 
   return fixtureArray.reduce(function(result, fixture) {
-    var shouldExclude = scope.some(function(url) {
+    const shouldExclude = scope.some(function(url) {
       return fixture.scope.indexOf(url) > -1;
     });
 
@@ -120,3 +123,5 @@ function removeExcludedScopeFromArray(fixtureArray, scope) {
     return result;
   }, []);
 }
+
+export default record;

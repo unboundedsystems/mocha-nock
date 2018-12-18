@@ -4,7 +4,7 @@ var request        = require('request');
 var path           = require('path');
 var app            = require('./app');
 var mkdirp         = require('mkdirp');
-var describeFixture = require('../lib/describe-fixture');
+var describeFixture = require('../dist/describe-fixture');
 
 var called;
 describeFixture('Playback', { recorder: { output_objects: false }}, function() {

@@ -3,7 +3,7 @@ var assert          = require('assert');
 var request         = require('request');
 var path            = require('path');
 var app             = require('./app');
-var describeFixture = require('../lib/describe-fixture');
+var describeFixture = require('../dist/describe-fixture');
 
 describeFixture.setDefaultConfig({ excludeScope: 'github.com' });
 

@@ -1,6 +1,6 @@
 var proxyquire = require('proxyquire').noPreserveCache();
 var assert = require('assert');
-var describeFixture = require('./../lib/describe-fixture');
+var describeFixture = require('./../dist/describe-fixture');
 
 var testName = 'testTitle';
 
@@ -21,7 +21,7 @@ describe('describeFixture', function() {
     assert.deepEqual(options, testOptions);
   }
 
-  var describeFixture = proxyquire('./../lib/describe-fixture', { './recorder': recordStub });
+  var describeFixture = proxyquire('./../dist/describe-fixture', { './recorder': recordStub });
 
   it('is called with name and options', function() {
     describeFixture(testName, testOptions, noop);
@@ -49,7 +49,7 @@ describe('describeFixture', function() {
         recorder: { output_objects: true, dont_print: true }
       });
     }
-    var describeFixture = proxyquire('./../lib/describe-fixture', { './recorder': recordStub });
+    var describeFixture = proxyquire('./../dist/describe-fixture', { './recorder': recordStub });
     describeFixture(testName, noop);
   });
 
@@ -67,7 +67,7 @@ describe('describeFixture', function() {
           }
         });
       }
-      var describeFixture = proxyquire('./../lib/describe-fixture', { './recorder': recordStub });
+      var describeFixture = proxyquire('./../dist/describe-fixture', { './recorder': recordStub });
 
       describeFixture.setDefaultConfig({
         excludeScope: 'github.com',
@@ -92,7 +92,7 @@ describe('describeFixture', function() {
           }
         });
       }
-      var describeFixture = proxyquire('./../lib/describe-fixture', { './recorder': recordStub });
+      var describeFixture = proxyquire('./../dist/describe-fixture', { './recorder': recordStub });
 
       describeFixture.setDefaultConfig({
         excludeScope: 'github.com',
