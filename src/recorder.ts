@@ -3,43 +3,44 @@
 
 import nock from 'nock';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import mkdirp from 'mkdirp';
 import { Config } from './config';
 
 export function record(name: string, options: Config) {
-  let hasFixtures = !!options.overwrite;
+  let recording: boolean;
   let fixturePath: string;
 
-  beforeEach(function() {
+  beforeEach(function () {
+    recording = false;
     fixturePath = path.resolve(path.join('test', 'fixtures', getFixturePath(this)));
 
-    if (!hasFixtures) {
-      try {
-        // Make sure we don't have any conflicting interceptors for this test
-        nock.cleanAll();
-
-        require(fixturePath)();
-        hasFixtures = true;
-      } catch (e) {
-        startRecording(options);
-      }
-    } else {
-      hasFixtures = false;
+    if (options.overwrite) {
       startRecording(options);
+      recording = true;
+      return;
+    }
+
+    try {
+      // Make sure we don't have any conflicting interceptors for this test
+      nock.cleanAll();
+
+      require(fixturePath)();
+    } catch (e) {
+      startRecording(options);
+      recording = true;
     }
   });
 
   // Saves our recording if fixtures didn't already exist
-  afterEach(function(done) {
-    var recordOnFailure = !!options.recordOnFailure;
-    if (!hasFixtures &&
-      ((this.currentTest && this.currentTest.state) !== 'failed' || recordOnFailure)) {
-      hasFixtures  = true;
-      var fixtures = nock.recorder.play();
+  afterEach(async function () {
+    if (recording &&
+      ((this.currentTest && this.currentTest.state) !== 'failed' || options.recordOnFailure)) {
+
+      let fixtures = nock.recorder.play();
       if (fixtures.length) {
-        var header = 'var nock = require(\'nock\');\n'
-                    + 'module.exports = function() {\n';
+        const header = 'var nock = require(\'nock\');\n'
+                     + 'module.exports = function() {\n';
 
         let body: string;
         if (options.recorder.output_objects) {
@@ -51,16 +52,9 @@ export function record(name: string, options: Config) {
 
         var footer = '\n};';
 
-        return mkdirp(path.dirname(fixturePath), function(err) {
-          if(err) { return done(err); }
-
-          return fs.writeFile(fixturePath, header + body + footer, done);
-        });
-      } else {
-        return done();
+        await fs.ensureDir(path.dirname(fixturePath));
+        await fs.writeFile(fixturePath, header + body + footer);
       }
-    } else {
-      return done();
     }
   });
 };
