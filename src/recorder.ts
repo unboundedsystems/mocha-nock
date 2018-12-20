@@ -57,6 +57,11 @@ export function record(name: string, options: Config) {
       }
     }
   });
+
+  after(() => {
+    nock.cleanAll();
+    nock.restore();
+  });
 };
 
 function getFixturePath(ctx: Mocha.Context) {
