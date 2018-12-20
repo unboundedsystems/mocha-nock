@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "npm run build && rm -rf test/fixtures && node_modules/mocha/bin/mocha test/*-test.js ",
+    "manual-release": "semantic-release --no-ci",
     "semantic-release": "semantic-release"
   },
   "repository": {
