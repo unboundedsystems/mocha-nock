@@ -26,6 +26,7 @@ export function record(name: string, options: Config) {
       nock.cleanAll();
 
       require(fixturePath)();
+      if (!nock.isActive()) nock.activate();
     } catch (e) {
       startRecording(options);
       recording = true;
