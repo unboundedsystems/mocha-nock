@@ -153,10 +153,10 @@
   dependencies:
     "@types/lodash" "*"
 
-"@types/lodash.defaults@4.2.4":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@types/lodash.defaults/-/lodash.defaults-4.2.4.tgz#652be4a5af7991d085a5d9f05bbb6ca6412c97db"
-  integrity sha512-yAjprukfZ4slzyO0Wq9D2ybyseEhNUG0DNZMb+QbOTqGgkVBZOpZdGatAtMZHVCmDlTCuKSAB5r22q1QuPJqjw==
+"@types/lodash.defaults@4.2.6":
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.defaults/-/lodash.defaults-4.2.6.tgz#4ac29d3dd80a42803397076600f5b129f4aef911"
+  integrity sha512-JsUJheQIG2Yf/n/QRUMGXT76/7x4tLU5i0kxIPeoOcTIh9yNzdEzCHWbwD8mTf+VncGwYZiho+F2u1pEBsGswA==
   dependencies:
     "@types/lodash" "*"
 

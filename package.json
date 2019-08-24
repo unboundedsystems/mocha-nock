@@ -42,7 +42,7 @@
     "@semantic-release/release-notes-generator": "7.1.4",
     "@types/fs-extra": "5.0.4",
     "@types/lodash.assign": "4.2.4",
-    "@types/lodash.defaults": "4.2.4",
+    "@types/lodash.defaults": "4.2.6",
     "@types/mkdirp": "0.5.2",
     "@types/mocha": "5.2.5",
     "@types/nock": "9.3.0",
