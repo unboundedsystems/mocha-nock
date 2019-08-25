@@ -1,6 +1,5 @@
 import record from './recorder';
 import assert from 'assert';
-import defaults from 'lodash.defaults';
 import assign from 'lodash.assign';
 import { Config } from './config';
 
@@ -70,12 +69,17 @@ function _describeFixture(
     // @ts-ignore
     callback.call(this);
 
-    const recordOptions = defaults(options, defaultConfig);
+    const recordOptions = {
+      ...defaultConfig,
+      ...options,
+    };
 
     // Defaults does not recursively check so we need to explicitly check the
     // record options and set defaults
-    recordOptions.recorder = defaults(recordOptions.recorder || {},
-                                      defaultConfig.recorder);
+    recordOptions.recorder = {
+      ...defaultConfig.recorder,
+      ...(options.recorder || {})
+    };
 
     // Should always be an array
     if (!Array.isArray(recordOptions.excludeScope)) {
@@ -109,10 +113,15 @@ const describeFixture: DescribeFixture = assign(_describeFixture, {
       return;
     };
 
-    const recorder = defaults(newConfig.recorder || {}, _defaultConfig.recorder);
-    defaultConfig.recorder = recorder;
-
-    defaultConfig = defaults(newConfig, defaultConfig);
+    const recorder = {
+      ..._defaultConfig.recorder,
+      ...(newConfig.recorder || {})
+    };
+    defaultConfig = {
+      ...defaultConfig,
+      ...newConfig,
+      recorder
+    };
   }
 });
 
