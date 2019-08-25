@@ -18,54 +18,52 @@ npm install --save-dev mocha-nock
 ## Usage
 
 Use `describeFixture` instead of `describe` and it will use nock to record all
-requests into your `test/fixtures` directory. It also supports `.skip` and
-`.only` as mocha does.
+requests.
+
+The first time this test executes, it will save the HTTP request & response into your `test/fixtures` directory.
+Then on subsequent tests, it will return the saved data and not use the network.
 
 ```js
-var request         = require('request');
-var assert          = require('assert');
-var describeFixture = require('mocha-nock-fixtures');
+const describeFixture = require('mocha-nock');
+const request         = require('request-promise-native');
 
-describeFixture('normal test', function() {
-  it('works', function(done) {
-    request('http://localhost:4000/users', function(err, res, body) {
-      assert(!err, 'was success');
-      done();
-    });
+describeFixture('normal test', () => {
+  it('works', async () => {
+    const response = await request('http://localhost:4000/users');
   });
 
-  describe('some other test', function() {
+  describe('some other test', () => {
     // You can use mocha how you normally would to group tests
   });
 });
+```
 
-describeFixture.skip('skipped test', function() {
+It also supports `.skip` and `.only`, like mocha does.
+```js
+describeFixture.skip('skipped test', () => {
   // Anything in here will be skipped
 });
 
-describeFixture.only('only test', function() {
+describeFixture.only('only test', () => {
   // This will be the only test run
 });
+```
 
-// Usage with test specific options
-//
-// This test will not record the request to localhost:4000 and anything it does
-// record it will also record the reqheaders
-describeFixture('normal test', {
+### Usage with test specific options
+```js
+// This test will not record the request to localhost:4000.
+// For anything it does record, it will also record the reqheaders.
+const opts = {
   excludeScope: 'localhost:4000',
   recorder: {
     enable_reqheaders_recording: true
   }
-}, function() {
-  it('works', function(done) {
-    request('http://localhost:4000/users', function(err, res, body) {
-      assert(!err, 'was success');
-      done();
-    });
-  });
+};
 
-  describe('some other test', function() {
-    // You can use mocha how you normally would to group tests
+describeFixture('normal test', opts, () => {
+  it('works', async () => {
+    const resp1 = await request('http://localhost:4000/users');
+    const resp2 = await request('https://google.com/');
   });
 });
 ```
@@ -100,10 +98,10 @@ override them for ALL tests. It must be called before any `describeFixture()` is
 called to work properly. The best place is in a test helper file.
 
 You also are able to pass in test specific options as the last parameter to
-`describeFixture()`. See the "Usage" section above for an example.
+`describeFixture()`. See the [Usage](#usage) section above for an example.
 
 
-## Authors ##
+## Authors
 
 Originally based off of an older version of [nock-vcr-recorder](https://github.com/poetic-labs/nock-vcr-recorder-mocha)
 by Jake Craige.
@@ -114,9 +112,9 @@ by Jake Craige.
 
 ## Legal
 
-[Unbounded Systems](https://unbounded.systems), LLC &copy; 2018
+&copy; 2018-2019 [Unbounded Systems, LLC](https://unbounded.systems)
 
-[Poetic Systems](http://poeticsystems.com), Inc &copy; 2014
+&copy; 2014 [Poetic Systems, Inc.](http://poeticsystems.com)
 
 [Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
 
