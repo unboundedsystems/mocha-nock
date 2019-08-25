@@ -1,8 +1,10 @@
+![npm](https://img.shields.io/npm/v/mocha-nock)
+[![Build Status](https://travis-ci.com/unboundedsystems/mocha-nock.svg?branch=master)](https://travis-ci.com/unboundedsystems/mocha-nock)
+![Dependencies](https://david-dm.org/unboundedsystems/mocha-nock.svg)
+
 # Mocha Nock
 
-## About
-
-A simple library that makes saving fixtures with
+A library that makes saving fixtures with
 [nock](https://github.com/pgte/nock) and
 [mocha](http://mochajs.org/) easy. Just
 use `describeFixture` instead of `describe` and it will record outbound requests
