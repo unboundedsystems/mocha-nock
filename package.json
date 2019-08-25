@@ -29,7 +29,7 @@
     "url": "https://github.com/unboundedsystems/mocha-nock/issues"
   },
   "dependencies": {
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^8.0.0",
     "lodash.assign": "^4.2.0",
     "lodash.defaults": "^4.2.0",
     "mkdirp": "^0.5.0",
@@ -40,7 +40,7 @@
     "@semantic-release/git": "7.0.5",
     "@semantic-release/npm": "5.1.2",
     "@semantic-release/release-notes-generator": "7.1.4",
-    "@types/fs-extra": "5.0.4",
+    "@types/fs-extra": "8.0.0",
     "@types/lodash.assign": "4.2.4",
     "@types/lodash.defaults": "4.2.4",
     "@types/mkdirp": "0.5.2",
