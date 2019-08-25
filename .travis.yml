@@ -8,3 +8,7 @@ node_js:
 sudo: false
 
 cache: yarn
+
+branches:
+  except:
+    - /^renovate\//
