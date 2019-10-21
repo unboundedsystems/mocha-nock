@@ -39,7 +39,7 @@
     "@semantic-release/git": "7.0.16",
     "@semantic-release/npm": "5.2.0",
     "@semantic-release/release-notes-generator": "7.3.0",
-    "@types/fs-extra": "8.0.0",
+    "@types/fs-extra": "8.0.1",
     "@types/lodash.assign": "4.2.6",
     "@types/mkdirp": "0.5.2",
     "@types/mocha": "5.2.5",
