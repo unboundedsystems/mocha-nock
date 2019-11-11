@@ -35,8 +35,8 @@
     "nock": "^10.0"
   },
   "devDependencies": {
-    "@semantic-release/commit-analyzer": "6.3.2",
-    "@semantic-release/git": "7.0.17",
+    "@semantic-release/commit-analyzer": "6.3.3",
+    "@semantic-release/git": "7.0.18",
     "@semantic-release/npm": "5.3.4",
     "@semantic-release/release-notes-generator": "7.3.2",
     "@types/fs-extra": "8.0.1",
