@@ -37,7 +37,7 @@
   "devDependencies": {
     "@semantic-release/commit-analyzer": "6.3.3",
     "@semantic-release/git": "7.0.18",
-    "@semantic-release/npm": "5.3.4",
+    "@semantic-release/npm": "5.3.5",
     "@semantic-release/release-notes-generator": "7.3.5",
     "@types/fs-extra": "8.0.1",
     "@types/lodash.assign": "4.2.6",
