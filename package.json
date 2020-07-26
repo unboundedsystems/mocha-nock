@@ -28,6 +28,9 @@
   "bugs": {
     "url": "https://github.com/unboundedsystems/mocha-nock/issues"
   },
+  "engines": {
+    "node" : ">=10.13"
+  },
   "dependencies": {
     "fs-extra": "^8.0.0",
     "lodash.assign": "^4.2.0",
