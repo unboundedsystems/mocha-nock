@@ -1,6 +1,6 @@
 {
   "name": "mocha-nock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Easy recording and playback of HTTP(S) for Mocha.js using Nock.",
   "main": "dist/describe-fixture.js",
   "scripts": {
