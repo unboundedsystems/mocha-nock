@@ -1,6 +1,6 @@
 {
   "name": "mocha-nock",
-  "version": "0.2.6",
+  "version": "1.0.0",
   "description": "Easy recording and playback of HTTP(S) for Mocha.js using Nock.",
   "main": "dist/describe-fixture.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "url": "https://github.com/unboundedsystems/mocha-nock/issues"
   },
   "engines": {
-    "node" : ">=10.13"
+    "node": ">=10.13"
   },
   "dependencies": {
     "fs-extra": "^8.0.0",
