@@ -53,7 +53,10 @@ export function record(name: string, options: Config) {
 
         var footer = '\n};';
 
-        await fs.ensureDir(path.dirname(fixturePath));
+        await /* TODO: JSFIX could not patch the breaking change:
+        Creating a directory with fs-extra no longer returns the path 
+        Suggested fix: The returned promise no longer includes the path of the new directory */
+        fs.ensureDir(path.dirname(fixturePath));
         await fs.writeFile(fixturePath, header + body + footer);
       }
     }
