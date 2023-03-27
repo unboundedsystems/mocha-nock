@@ -275,10 +275,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash.assign@4.2.6":
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/@types/lodash.assign/-/lodash.assign-4.2.6.tgz#e5cc225446c706907893263d5938c6571ad28551"
-  integrity sha512-SaReADQZqf99FUWZ/gHICOAhLfBvaUmVb9y8xCw7o5WDuqDG0YfN1a+by29eipPcV4FITfPbQMJQiOGAeOb4fw==
+"@types/lodash.assign@4.2.7":
+  version "4.2.7"
+  resolved "https://registry.yarnpkg.com/@types/lodash.assign/-/lodash.assign-4.2.7.tgz#76cb7ce2927a302e83c2148e1a26114b427886f1"
+  integrity sha512-FABtilcXqbXBj9jnSqgTbmr0Wy3lhDgMkGtNfcE+wipuKi2/fv7wB9rCeJfLi1H/qt1YxVAENtQkdKisYIwFKg==
   dependencies:
     "@types/lodash" "*"
 
